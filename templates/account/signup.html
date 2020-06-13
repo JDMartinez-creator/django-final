@@ -1,0 +1,40 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<div style="margin-left: 1%; margin-top: 1%"><a href="/" class="btn btn-light">&laquo; Principal</a></div>
+<div class="row justify-content-center " style="margin-top: 8%">
+<div class="text-center form-signin">
+<h1>{% trans "Sign Up" %}</h1>
+<style >
+    body
+    {
+      background-image: url("{% static "backgroundlogin.jpg" %}");
+    }
+    .form-signin
+    {
+
+    margin: auto;
+    border: 3px solid black;
+    width: 40%;
+    background-image: linear-gradient(#b3ffb3,white);
+    }
+  </style>
+<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+<form class="signup" id="signup_form" method="post" action="{% url 'iniciar' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+</form>
+<br>
+<p>&copy; S8A Implementación de servicios web</p>
+</div>
+</div>
+{% endblock %}
