@@ -8,16 +8,32 @@ import json
 
 def listProductos(request):
 	productos = producto.objects.all()
-	return render(request,"list_productos.php",{"productos":productos})
+	id = request.user.id
+	car = carro.objects.filter(usuario_id = id)
+	return render(request,"list_productos.php",{"productos":productos,"carro":car})
 
 def addCart(request):
+	aidi = request.user.id
 	user_name = request.POST.get('username')
 	product_id = request.POST.get('id')
-	cart = carro()
-	cart.usuario_id = user_name
-	cart.producto_id = product_id
-	cart.cantidad = 1
-	cart.save()
+	bol = False
+	tr = carro.objects.filter(usuario_id = aidi)
+	for t in tr:
+		if int(product_id) == t.producto_id:
+			bol = True
+	
+	if bol == True:
+		item = carro.objects.filter(usuario_id = aidi,producto_id=product_id)
+		for i in item:
+			aux = i.cantidad
+			i.cantidad = aux + 1
+			i.save()
+	else:
+		cart = carro()
+		cart.usuario_id = user_name
+		cart.producto_id = product_id
+		cart.cantidad = 1
+		cart.save()
 	response = redirect("/cart/"+user_name)
 	return response
 
@@ -29,14 +45,29 @@ def showCart(request,pk):
 		unidad = producto.objects.filter(id = x.producto_id)
 		for y in unidad:
 			total = total + (x.cantidad * y.precio)
-		#total = total + (x.cantidad * aux)
 	return render(request,"carro_compra.php",{"carro":cart,"productos":prod,"cantidad":total})
-
-	#if usuario.is_authenticated:
-	#	cart = carro.objects.filter(usuario_id = 4)
-	#return render(request,"carro_compra.php",{"state":cart})
 
 def deleteall(request):
 	carro.objects.all().delete()
 	response = redirect("/")
+	return response
+
+def delcarr(request,pk):
+	user_id = request.user.id
+	borr = carro.objects.filter(usuario_id = user_id,producto_id=pk)
+	borr.delete()
+	response = redirect("/cart/"+str(user_id))
+	return response
+
+def realizarPedido(request):
+	user_id = request.user.id
+	car = carro.objects.filter(usuario_id = user_id)
+	for c in car:
+		pedir = pedido()
+		pedir.producto_id = c.producto_id
+		pedir.cantidad = c.cantidad
+		pedir.save()
+	car.delete()
+
+	response = redirect("/cart/"+str(user_id))
 	return response

@@ -1,44 +1,6 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Productos</title>
-  
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-</head>
-<body >
-    <header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">TEMPEST</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Principal <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="productos">productos</a>
-        </li>
-
-      </ul>
-      <div class="form-inline mt-2 mt-md-0">
-        {% if user.is_authenticated %}
-        {% if user.rol == 1 %}
-          <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/" style="margin-right: 15px;">carrito</a>
-          {% elif user.rol == 2 %}
-           <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/" style="margin-right: 15px;">Pedidos</a>
-          {% endif %}
-        <a class="btn btn-outline-success my-2 my-sm-0" href="/accounts/logout/">cerrar sesión</a>
-        {% else %}
-        <a class="btn btn-outline-success my-2 my-sm-0" href="/accounts/login/" style="margin-right: 15px;">Registrarse</a>
-        <a class="btn btn-outline-success my-2 my-sm-0" href="/accounts/login/">Iniciar sesión</a>
-        {% endif %}
-      </div>
-    </div>
-  </nav>
-</header>
+{% block content %}
 
 <main role="main">
   <br>
@@ -95,3 +57,5 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </html>
+
+{% endblock %}

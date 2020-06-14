@@ -127,9 +127,7 @@
                                 </div>
                             </div>
                             <div class="col-2 col-sm-2 col-md-2 text-right">
-                                <button type="button" class="btn btn-outline-danger btn-xs">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </button>
+                                <a href="/delcarr/{{m.producto_id}}" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </div>
@@ -147,7 +145,11 @@
             </div>
             <div class="card-footer">
                 <div class="pull-right" style="margin: 10px">
-                    <a href="" class="btn btn-success pull-right">Realizar pedido</a>
+                    {% if cantidad <= 0 %}
+                    <button class="btn btn-success pull-right" disabled="true">Realizar pedido</button>
+                    {% else %}
+                    <a href="/realizarpedido/" class="btn btn-success pull-right">Realizar pedido</a>
+                    {% endif %}
                     <div class="pull-right" style="margin: 5px">
                         Precio total <b>$ {{cantidad}} </b>
                     </div>
