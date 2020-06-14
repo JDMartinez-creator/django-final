@@ -12,16 +12,16 @@
           <a class="nav-link" href="/">Principal <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="productos">productos</a>
+          <a class="nav-link" href="../../productos">productos</a>
         </li>
 
       </ul>
       <div class="form-inline mt-2 mt-md-0">
         {% if user.is_authenticated %}
         {% if user.rol == 1 %}
-          <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/">carrito</a>
+          <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/" style="margin-right: 15px;">carrito</a>
           {% elif user.rol == 2 %}
-           <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/">Pedidos</a>
+           <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/" style="margin-right: 15px;">Pedidos</a>
           {% endif %}
         <a class="btn btn-outline-success my-2 my-sm-0" href="/accounts/logout/">cerrar sesión</a>
         {% else %}

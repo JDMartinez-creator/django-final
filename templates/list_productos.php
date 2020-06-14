@@ -1,6 +1,13 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src=" {% static "js/ajax.js" %}"></script>
+<script type="text/javascript">
+  document.getElementById("addcarrito").addEventListener("click", function(event){
+  event.preventDefault();
+});
+</script>
     <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#">TEMPEST</a>
@@ -20,9 +27,9 @@
       <div class="form-inline mt-2 mt-md-0">
       	{% if user.is_authenticated %}
         {% if user.rol == 1 %}
-          <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/">carrito</a>
+          <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/{{user.id}}" style="margin-right: 15px;">carrito</a>
           {% elif user.rol == 2 %}
-           <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/">Pedidos</a>
+           <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/" style="margin-right: 15px;">Pedidos</a>
           {% endif %}
         <a class="btn btn-outline-success my-2 my-sm-0" href="/accounts/logout/">cerrar sesión</a>
         {% else %}
@@ -33,6 +40,7 @@
     </div>
   </nav>
 </header>
+
 <br>
 <br>
 <br><br>
@@ -54,10 +62,16 @@
                 <h5>${{m.precio}}</h5>
                 <p class="card-text text-justify">{{m.descripcion}}</p>
                 <footer>
-                  
-                  <form method="POST" action="">
-                    <button type="submit" class="btn btn-danger">Añadir al carrito</button>
-                  </form>
+                  {% if user.is_authenticated %}
+                      {% if user.rol == 1 %}
+                          <form method="POST" action="{% url 'addCart' %}" >
+                            {% csrf_token %}
+                            <input type="text" value="{{ user.id }}" name="username" hidden="true">
+                            <input type="text" value="{{m.id}}" hidden="true" name="id">
+                            <input type="submit" value="Añadir al carrito" id="addcarrito">
+                          </form>
+                          {% endif %}
+                    {% endif %}
                 </footer>
               </div>
 
@@ -66,4 +80,15 @@
 {% endfor %}
 
         </div>
+{% endblock %}
+
+{% block js %}
+<script type="">
+  function alerta()
+{
+  alert("añadido al carrito");
+}
+
+</script>
+
 {% endblock %}

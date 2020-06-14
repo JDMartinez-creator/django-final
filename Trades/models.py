@@ -10,11 +10,9 @@ class usuario(AbstractUser):
 		return self.username
 
 class pedido(models.Model):
-	pedido_id = models.IntegerField()
-	usuario_id = models.IntegerField()
-	producto_id = models.IntegerField()
-	orden_id = models.IntegerField()
-	cantidad = models.IntegerField()
+	pedido_id = models.AutoField(primary_key=True)
+	producto_id = models.IntegerField(null=False, default=1)
+	cantidad = models.IntegerField(null=False)
 	fecha = models.DateTimeField(default=datetime.now)
 	def __str__(self):
 		return self.pedido_id
@@ -23,16 +21,16 @@ class pedido(models.Model):
 class producto(models.Model):
 	id = models.AutoField(primary_key=True)
 	nombre = models.CharField(max_length=20)
-	descripcion = models.TextField()
+	descripcion = models.TextField(null=False)
 	precio = models.FloatField()
 	def __str__(self):
 		return self.nombre
 
 class carro(models.Model):
 	id = models.AutoField(primary_key=True)
-	usuario_id = models.IntegerField()
-	producto_id = models.IntegerField()
+	usuario_id = models.IntegerField(null=False)
+	producto_id = models.IntegerField(null=False, default=1)
 	cantidad = models.IntegerField()
-	def __str__(self):
-		return self.usuario_id
+	def retid(self):
+		return self.id
 	
