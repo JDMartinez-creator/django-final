@@ -10,5 +10,6 @@ path("cart/<int:pk>/",showCart,name="showCart"),
 path("delete/",deleteall),
 path("delcarr/<int:pk>/",delcarr,name="delcarr"),
 path("realizarpedido/",realizarPedido,name="realizarPedido"),
+path("actualizar/",actualizar,name= "actualizar"),
 
 ]

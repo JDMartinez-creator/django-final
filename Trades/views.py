@@ -71,3 +71,14 @@ def realizarPedido(request):
 
 	response = redirect("/cart/"+str(user_id))
 	return response
+
+def actualizar(request):
+	id_producto = request.POST.get('id_prod')
+	cant = request.POST.get('valor')
+	user_id = request.user.id
+	updt = carro.objects.filter(usuario_id=user_id,producto_id = id_producto)
+	for x in updt:
+		x.cantidad = cant
+		x.save()
+	response = redirect("/cart/"+str(user_id))
+	return response

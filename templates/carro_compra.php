@@ -5,6 +5,12 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <script src="https://use.fontawesome.com/c560c025cf.js"></script>
+<script type="text/javascript">
+    function cambio(){
+        var g = document.getElementById("valor");
+        alert(g.value);
+    }
+</script>
 <style type="">
     
 .quantity {
@@ -73,15 +79,13 @@
     margin-top: 20px;
 }
 </style>
-
-
 <br>
 <br>
 <br>
 <br>
 {% if user.is_authenticated %}
         {% if user.rol == 1 %}
-<div class="container" onload="getTotal()">
+<div class="container">
    <div class="card shopping-cart">
             <div class="card-header bg-dark text-light">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -113,42 +117,47 @@
                             </h4>
                         </div>
                         <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
-                            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 25px">
                                 <h6><strong id="precio">{% for p in productos %}
                                     {% if p.id == m.producto_id %}
                                         {{p.precio}}
                                     {% endif %}
                                 {% endfor %} <span class="text-muted">x</span></strong></h6>
                             </div>
-                            <div class="col-4 col-sm-4 col-md-4">
-                                <div class="quantity">
+
+                            <form method="POST" action="{% url 'actualizar' %}" >
+                            {% csrf_token %}
+                            <div class="col-4 col-sm-4 col-md-4" style="padding-top: 15px">
+                                <div class="quantity" >
                                     <input type="number" step="1" max="99" min="1" value="{{m.cantidad}}" title="Qty" class="qty"
-                                           size="5">
+                                           size="5" id="valor" name="valor">
                                 </div>
                             </div>
+                            <input type="text" value="{{m.producto_id}}" name="id_prod" hidden="true">
                             <div class="col-2 col-sm-2 col-md-2 text-right">
+                                <button type="submit" class="btn btn-outline-success btn-xs"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                                
+
+
+                                </form>
                                 <a href="/delcarr/{{m.producto_id}}" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </div>
-                    
+                    <hr>
                     {% endfor %}
                     
                     <hr>
                     <!-- END PRODUCT -->
                     
-                <div class="pull-right">
-                    <a href="" class="btn btn-outline-secondary pull-right">
-                        Update shopping cart
-                    </a>
-                </div>
+               
             </div>
             <div class="card-footer">
                 <div class="pull-right" style="margin: 10px">
                     {% if cantidad <= 0 %}
                     <button class="btn btn-success pull-right" disabled="true">Realizar pedido</button>
                     {% else %}
-                    <a href="/realizarpedido/" class="btn btn-success pull-right">Realizar pedido</a>
+                    <a href="/realizarpedido/{{m.producto_id}}" class="btn btn-success pull-right">Realizar pedido</a>
                     {% endif %}
                     <div class="pull-right" style="margin: 5px">
                         Precio total <b>$ {{cantidad}} </b>
