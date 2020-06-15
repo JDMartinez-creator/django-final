@@ -18,7 +18,8 @@
 {% for m in productos %}
 <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              
+              <a href=""><img class="card-img-top" src="{% get_static_prefix %}img/{{m.nombre}}.jpg" alt="" disabled width="110" height="350"></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#">{{m.nombre}}</a>
@@ -32,7 +33,7 @@
                             {% csrf_token %}
                             <input type="text" value="{{ user.id }}" name="username" hidden="true">
                             <input type="text" value="{{m.id}}" hidden="true" name="id">
-                            <input type="submit" value="Añadir al carrito" id="addcarrito">
+                            <input type="submit" value="Añadir al carrito" id="addcarrito" class="btn btn-outline-danger">
                           </form>
                           {% endif %}
                     {% endif %}

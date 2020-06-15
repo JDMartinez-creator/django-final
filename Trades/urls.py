@@ -12,4 +12,8 @@ path("delcarr/<int:pk>/",delcarr,name="delcarr"),
 path("realizarpedido/",realizarPedido,name="realizarPedido"),
 path("actualizar/",actualizar,name= "actualizar"),
 path("pedidos/",pedidos,name = "pedidos"),
+path("verpedidos/",verpedidos, name="verpedidos"),
+path("verpedido/<int:pk>",verpedido,name= "verpedido"),
+path("anadirproducto/",anadirproducto,name="anadirproducto"),
+path("add_producto",add_producto,name="add_producto"),
 ]

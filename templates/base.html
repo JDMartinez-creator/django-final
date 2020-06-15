@@ -30,7 +30,8 @@
           <a class="btn btn-outline-success my-2 my-sm-0" href="/pedidos/" style="margin-right: 15px;">Pedidos</a>
           <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/{{user.id}}" style="margin-right: 15px;">Carrito</a>
           {% elif user.rol == 2 %}
-           <a class="btn btn-outline-success my-2 my-sm-0" href="/cart/" style="margin-right: 15px;">Pedidos</a>
+          <a class="btn btn-outline-success my-2 my-sm-0" href="/anadirproducto/" style="margin-right: 15px;">Añadir producto</a>
+           <a class="btn btn-outline-success my-2 my-sm-0" href="/verpedidos/" style="margin-right: 15px;">Pedidos</a>
           {% endif %}
         <a class="btn btn-outline-success my-2 my-sm-0" href="/accounts/logout/">cerrar sesión</a>
         {% else %}

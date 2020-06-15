@@ -49,6 +49,8 @@ def showCart(request,pk):
 
 def deleteall(request):
 	pedido.objects.all().delete()
+	carro.objects.all().delete()
+	usuario.objects.all().delete()
 	response = redirect("/")
 	return response
 
@@ -94,3 +96,34 @@ def pedidos(request):
 		for y in unidad:
 			total = total + (x.cantidad * y.precio)
 	return render(request,"usuario/pedidos.html",{"pedidos":req,"productos":prod,"cantidad":total})
+
+
+def verpedidos(request):
+	usr = usuario.objects.filter(rol=1)
+	return render(request,"usuario/verpedidos.html",{"usuarios":usr})
+
+def verpedido(request,pk):
+	total = 0
+	req = pedido.objects.filter(usuario_id = pk)
+	prod = producto.objects.all()
+	for x in req:
+		unidad = producto.objects.filter(id = x.producto_id)
+		for y in unidad:
+			total = total + (x.cantidad * y.precio)
+	return render(request,"usuario/pedidos.html",{"pedidos":req,"productos":prod,"cantidad":total})
+
+def anadirproducto(request):
+	return render(request,"anadirproducto.html")
+
+def add_producto(request):
+	nombre = request.POST.get('nombre')
+	descripcion = request.POST.get('descripcion')
+	precio = request.POST.get("precio")
+	product = producto()
+	product.nombre = nombre
+	product.descripcion = descripcion
+	product.precio = precio
+	product.save()
+
+	response = redirect("anadirproducto/")
+	return response

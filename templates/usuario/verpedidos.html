@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+
+<main role="main">
+<div class="text-center">
+	
+
+
+<h1>Lista de clientes</h1>
+<br><br>
+
+{% for user in usuarios %}
+	<a href="/verpedido/{{user.id}}" class="btn btn-primary">{{user.username}}</a>
+	<br>
+	<br>
+{% endfor %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style >
+   
+    .form-signin
+    {
+
+    margin: auto;
+    border: 3px solid black;
+    width: 40%;
+    background-image: linear-gradient(#b3ffb3,white);
+    }
+    label
+    {
+    	display: inline-block;
+    	margin-bottom: .5rem;
+    }
+  </style>
+<main role="main">
+  <br>
+<br>
+<br><br>
+<div class="text-center">
+
+<form class="form-signin" method="POST" action="{% url 'add_producto' %}">
+	{% csrf_token %}
+	<br>
+	<h1>Añadir nuevo producto</h1>
+<br>
+	<label>Nombre: </label>
+	<input type="text" name="nombre" required><br><br>
+	<label>descripción: </label><br>
+	<textarea name="descripcion" rows="3" cols="50" required></textarea><br><br>
+	<label>precio: </label>
+	<input type="number" name="precio" required><br><br>
+	<br>
+	<button type="submit" class="btn btn-success" onclick="alerta()">Guardar</button>
+	<br>
+	<br>
+</form>
+</div>
+<script type="text/javascript">
+	function alerta(){
+		alert("producto agregado satisfactoriamente")
+	}
+</script>
+{% endblock %}

@@ -85,7 +85,7 @@
 <br>
 <br>
 {% if user.is_authenticated %}
-        {% if user.rol == 1 %}
+        
 <div class="container">
    <div class="card shopping-cart">
             <div class="card-header bg-dark text-light">
@@ -101,20 +101,21 @@
                     
                     <div class="row">
 
-                        <div class="col-12 col-sm-12 col-md-2 text-center">
-                                <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120" height="80">
-                        </div>
+                        
                         <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
                             <h4 class="product-name"><strong>
-                                
-                            </strong></h4>
-                            <h4>
-                                <small>{% for p in productos %}
+                                {% for p in productos %}
                                     {% if p.id == m.producto_id %}
                                         {{p.nombre}}
                                     {% endif %}
-                                {% endfor %}</small>
+                                {% endfor %}
+                            </strong></h4>
+                            <h4>
+                                <small></small>
                             </h4>
+                            <div class="col-12 col-sm-12 col-md-2 text-center">
+                               
+                        </div>
                         </div>
                         <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
                             <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 25px">
@@ -132,7 +133,9 @@
                                            size="5" id="valor" name="valor" disabled>
                                 </div>
                             </div>
-                       
+                       		<div class="text-right">
+                                {{ m.fecha }}
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -144,19 +147,17 @@
                
             </div>
             <div class="card-footer">
-              
+             
+                <div class="pull-right" style="margin: 10px">
+                
+                    <div class="pull-right" style="margin: 5px">
+                         Total <b>$ {{cantidad}} </b>
+                    </div>
+                </div>
+            
             </div>
         </div>
 </div>
-    {% else %}
-    <div class="text-center" style="margin: auto;">
-      <br>
-      <br>
-      <h1>usted no tiene acceso a esta pagina</h1>
-      <br>
-      
-    </div>
-    {% endif %}
 
 {% else %}
     <div class="text-center" style="margin: auto;">
