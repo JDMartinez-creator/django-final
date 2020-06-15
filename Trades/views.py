@@ -48,7 +48,7 @@ def showCart(request,pk):
 	return render(request,"carro_compra.php",{"carro":cart,"productos":prod,"cantidad":total})
 
 def deleteall(request):
-	carro.objects.all().delete()
+	pedido.objects.all().delete()
 	response = redirect("/")
 	return response
 
@@ -64,6 +64,7 @@ def realizarPedido(request):
 	car = carro.objects.filter(usuario_id = user_id)
 	for c in car:
 		pedir = pedido()
+		pedir.usuario_id = user_id
 		pedir.producto_id = c.producto_id
 		pedir.cantidad = c.cantidad
 		pedir.save()
@@ -82,3 +83,14 @@ def actualizar(request):
 		x.save()
 	response = redirect("/cart/"+str(user_id))
 	return response
+
+def pedidos(request):
+	total = 0
+	user_id = request.user.id
+	req = pedido.objects.filter(usuario_id = user_id)
+	prod = producto.objects.all()
+	for x in req:
+		unidad = producto.objects.filter(id = x.producto_id)
+		for y in unidad:
+			total = total + (x.cantidad * y.precio)
+	return render(request,"usuario/pedidos.html",{"pedidos":req,"productos":prod,"cantidad":total})

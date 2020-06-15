@@ -28,4 +28,6 @@ def userS(request):
 	return response
 
 def redir(request):
-	return render(request,"usuario/profile.php")
+	
+	response = redirect("/pedidos/")
+	return response

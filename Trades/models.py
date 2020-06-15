@@ -12,11 +12,10 @@ class usuario(AbstractUser):
 class pedido(models.Model):
 	pedido_id = models.AutoField(primary_key=True)
 	producto_id = models.IntegerField(null=False, default=1)
+	usuario_id = models.IntegerField(null=False, default=1)
 	cantidad = models.IntegerField(null=False)
 	fecha = models.DateTimeField(default=datetime.now)
-	def __str__(self):
-		return self.pedido_id
-		return self.usuario_id
+		
 
 class producto(models.Model):
 	id = models.AutoField(primary_key=True)

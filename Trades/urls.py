@@ -11,5 +11,5 @@ path("delete/",deleteall),
 path("delcarr/<int:pk>/",delcarr,name="delcarr"),
 path("realizarpedido/",realizarPedido,name="realizarPedido"),
 path("actualizar/",actualizar,name= "actualizar"),
-
+path("pedidos/",pedidos,name = "pedidos"),
 ]
